@@ -1,5 +1,5 @@
 # DealCraft 🎯
-### Intelligent Deal Preparation & MEDDIC Strategy Platform
+### Autonomous Marketing & Sales Agent
 
 DealCraft is an enterprise deal intelligence engine that automatically ingests CRM data, communications, and transcripts, models buying committees in a knowledge graph, indexes engagement evidence in a vector store, and synthesizes grounded, audit-verified **MEDDIC playbooks** and battlecards for enterprise sales teams.
 
