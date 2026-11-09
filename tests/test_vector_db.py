@@ -31,7 +31,12 @@ class TestVectorDB(unittest.TestCase):
 
         # Query filtered by deal_id d-2
         results_d2 = self.store.search_similar(emb1, deal_id="d-2", limit=5)
-        self.assertEqual(len(results_d2), 0)
+        self.assertEqual(len(results_d2), 1)
+        self.assertEqual(results_d2[0]["payload"]["id"], "chunk-2")
+
+        # Query filtered by nonexistent deal_id
+        results_empty = self.store.search_similar(emb1, deal_id="d-nonexistent", limit=5)
+        self.assertEqual(len(results_empty), 0)
 
     def test_get_deal_chunks(self):
         chunks = [
@@ -47,3 +52,4 @@ class TestVectorDB(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
