@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Playbook &mdash; Acme Corporation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #eef1f5; color: #0f172a; line-height: 1.5; padding: 40px 20px; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .muted { color: #64748b; font-size: 13.5px; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 26px; }
+  .top h1 { font-size: 30px; font-weight: 800; letter-spacing: .14em; }
+  .top .tagline { color: #64748b; font-size: 15px; margin-top: 6px; }
+  .chip { background: #fff; border: 1px solid #e6e9ef; border-radius: 14px; padding: 14px 18px; display: flex; gap: 26px; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+  .chip .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #94a3b8; }
+  .chip .val { font-size: 14px; font-weight: 700; color: #1e293b; margin-top: 3px; }
+  .card { background: #fff; border: 1px solid #e6e9ef; border-radius: 18px; padding: 26px; margin-bottom: 22px; box-shadow: 0 4px 18px rgba(16,24,40,.05); }
+  .icon-circ { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .snum { font-size: 15px; font-weight: 750; letter-spacing: .02em; color: #0f172a; }
+  .wide { display: grid; grid-template-columns: 220px 1fr; gap: 32px; align-items: start; }
+  .intro .icon-circ { margin-bottom: 14px; } .intro .snum { margin-bottom: 6px; }
+  .cols4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+  .col-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 10px; }
+  ul { list-style: none; }
+  li { font-size: 13px; color: #475569; margin-bottom: 8px; padding-left: 15px; position: relative; }
+  li::before { content: ''; position: absolute; left: 2px; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; }
+  .clink { font-weight: 650; font-size: 13px; text-decoration: none; display: inline-block; margin-top: 10px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .grid-2 .card { margin-bottom: 0; }
+  .mini-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .mini ul { margin-bottom: 4px; }
+  .bc { border: 1px solid #e6e9ef; border-radius: 14px; overflow: hidden; margin-top: 18px; }
+  .bc-head, .bc-row { display: grid; grid-template-columns: 1fr 1fr 130px; }
+  .bc-head > div { padding: 12px 18px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .bc-head .h-them { background: #475569; color: #fff; } .bc-head .h-us { background: #059669; color: #fff; }
+  .bc-head .h-src { background: #f8fafc; color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+  .logo-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.85); }
+  .bc-row { border-top: 1px solid #eef1f5; }
+  .bc-row > div { padding: 14px 18px; display: flex; gap: 10px; align-items: flex-start; }
+  .bc-row .c-them { background: #fcfcfd; } .bc-row .c-us { background: #f6fdfa; }
+  .bc-row p { font-size: 13.5px; } .bc-row .c-them p { color: #475569; } .bc-row .c-us p { color: #0f3d2e; font-weight: 550; }
+  .ic-x { color: #dc6b6b; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .ic-c { color: #059669; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .c-src { align-items: center; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 650; padding: 3px 10px; border-radius: 20px; border: 1px solid; white-space: nowrap; }
+  .watch { margin-top: 18px; border: 1px solid #fcd9a8; background: linear-gradient(180deg,#fffaf2,#fff); border-radius: 14px; padding: 18px; }
+  .watch-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .watch-head b { color: #92400e; font-size: 15px; }
+  .watch .warn { width: 26px; height: 26px; border-radius: 8px; background: #f59e0b; color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .watch-item { background: #fff; border: 1px solid #fde4bf; border-radius: 11px; padding: 12px 14px; margin-bottom: 10px; }
+  .watch-item:last-child { margin-bottom: 0; }
+  .w-strength { font-size: 13.5px; font-weight: 600; color: #1e293b; }
+  .w-action { font-size: 12.5px; color: #b45309; margin-top: 5px; font-weight: 600; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #fff; border: 1px solid #e6e9ef; border-radius: 14px; padding: 16px 22px; }
+  .foot .living { display: flex; align-items: center; gap: 12px; }
+  .foot .spark { width: 34px; height: 34px; border-radius: 9px; background: #eef2ff; color: #6366f1; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .foot .living b { font-size: 14px; } .foot .living p { font-size: 13px; color: #64748b; }
+  .foot .upd { font-size: 12px; color: #94a3b8; text-align: right; }
+  @media (max-width: 860px) {
+    .wide { grid-template-columns: 1fr; gap: 18px; } .cols4 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; } .bc-head, .bc-row { grid-template-columns: 1fr 1fr 90px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div><h1>DEAL PLAYBOOK</h1><p class="tagline">Your go-to guide for winning this deal.</p></div>
+      <div class="chip">
+        <div><div class="lbl">Deal</div><div class="val">Acme Corporation</div></div>
+        <div><div class="lbl">Stage</div><div class="val">Solution Evaluation</div></div>
+      </div>
+    </div>
+    
+    <section class="card wide">
+      <div class="intro">
+        <span class="icon-circ" style="background:#6366f115"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></span>
+        <div class="snum">1. DEAL STRATEGY</div>
+        <p class="muted">Our plan to win.</p>
+      </div>
+      <div class="cols4">
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 4 14 11 14 10 22 19 9 12 9 13 2"/></svg><span>Next Action</span></div>
+      <ul><li>Schedule technical deep dive with platform team</li><li>Share TCO analysis tailored to Acme Corporation</li></ul>
+      <a class="clink" style="color:#6366f1" href="#">View Action Plan &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M18 20a6 6 0 0 0-3-5.2"/></svg><span>People</span></div>
+      <ul><li>Economic Buyer: VP Engineering</li><li>Champion: Observability Lead</li><li>Influencers: SRE, Security</li></ul>
+      <a class="clink" style="color:#6366f1" href="#">View Stakeholder Map &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-1.5 4L16 12H5"/></svg><span>Positioning</span></div>
+      <ul><li>Lead with cost at scale</li><li>Emphasize full-fidelity retention</li><li>Align to Acme Corporation's data-growth roadmap</li></ul>
+      <a class="clink" style="color:#6366f1" href="#">View Messaging &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Product</span></div>
+      <ul><li>Streaming data lake</li><li>High-cardinality analytics</li><li>Long-term retention</li></ul>
+      <a class="clink" style="color:#6366f1" href="#">View Solution Fit &rarr;</a>
+    </div></div>
+    </section>
+    
+    <section class="card">
+      <div class="mini-head">
+        <span class="icon-circ" style="background:#10b98115"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.5 7 22l5-3 5 3-1.2-8.5"/></svg></span>
+        <div>
+          <div class="snum">2. COMPETITIVE INTEL</div>
+          <p class="muted">Live battlecard &middot; Hydrolix vs Datadog &middot; synthesized from marketing intel, sales calls &amp; customer email.</p>
+        </div>
+      </div>
+      <div class="bc">
+        <div class="bc-head">
+          <div class="h-them"><span class="logo-dot"></span>Datadog</div>
+          <div class="h-us"><span class="logo-dot"></span>Hydrolix</div>
+          <div class="h-src">Source</div>
+        </div>
+        
+        <div class="bc-row">
+          <div class="c-them"><span class="ic-x">&#10005;</span><p>Log retention costs climb steeply as data volume grows.</p></div>
+          <div class="c-us"><span class="ic-c">&#10003;</span><p>Decoupled storage keeps long-term retention affordable at high volume.</p></div>
+          <div class="c-src"><span class="pill" style="color:#6366f1;background:#6366f114;border-color:#6366f133">Marketing</span></div>
+        </div>
+        <div class="bc-row">
+          <div class="c-them"><span class="ic-x">&#10005;</span><p>Purpose-built for monitoring and alerting, not analytical querying at scale</p></div>
+          <div class="c-us"><span class="ic-c">&#10003;</span><p>Designed for analytical querying at scale, supporting complex queries and deep insights</p></div>
+          <div class="c-src"><span class="pill" style="color:#6366f1;background:#6366f114;border-color:#6366f133">Marketing</span></div>
+        </div>
+        <div class="bc-row">
+          <div class="c-them"><span class="ic-x">&#10005;</span><p>Query performance degrades significantly when above a certain cardinality threshold</p></div>
+          <div class="c-us"><span class="ic-c">&#10003;</span><p>Handles high-cardinality fields without performance degradation, preserving all data</p></div>
+          <div class="c-src"><span class="pill" style="color:#0ea5e9;background:#0ea5e914;border-color:#0ea5e933">Call Transcript</span></div>
+        </div>
+        <div class="bc-row">
+          <div class="c-them"><span class="ic-x">&#10005;</span><p>Not built for deep historical lookups, optimized for recent, real-time monitoring windows</p></div>
+          <div class="c-us"><span class="ic-c">&#10003;</span><p>Supports deep historical lookups and forensic queries, without additional infrastructure costs</p></div>
+          <div class="c-src"><span class="pill" style="color:#f59e0b;background:#f59e0b14;border-color:#f59e0b33">Email</span></div>
+        </div>
+      </div>
+      
+        <div class="watch">
+          <div class="watch-head"><span class="warn">!</span><b>Where Datadog is stronger</b>
+            <span class="muted">&mdash; no validated counter on file yet, flagged for follow-up.</span></div>
+          
+          <div class="watch-item">
+            <p class="w-strength">Strong PLG motion with a free tier drives bottoms-up engineering adoption <span class="pill" style="color:#6366f1;background:#6366f114;border-color:#6366f133">Marketing</span></p>
+            <p class="w-action">&#9888; No validated counter on file — consult Marketing for positioning.</p>
+          </div>
+          <div class="watch-item">
+            <p class="w-strength">600+ integrations, positioned as a consolidation play against tool sprawl <span class="pill" style="color:#6366f1;background:#6366f114;border-color:#6366f133">Marketing</span></p>
+            <p class="w-action">&#9888; No validated counter on file — consult Marketing for positioning.</p>
+          </div>
+        </div>
+    </section>
+    <div class="grid-2">
+    <section class="card mini">
+      <div class="mini-head">
+        <span class="icon-circ" style="background:#0ea5e915"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.7" y2="16.7"/></svg></span>
+        <div>
+          <div class="snum">3. DISCOVERY FRAMEWORK</div>
+          <p class="muted">Uncover what matters.</p>
+        </div>
+      </div>
+      <ul><li>Business Goals</li><li>Current State</li><li>Pain Points</li><li>Success Criteria</li><li>MEDDICC Checklist</li></ul>
+      <a class="clink" style="color:#0ea5e9" href="#">View Discovery Guide &rarr;</a>
+    </section>
+    <section class="card mini">
+      <div class="mini-head">
+        <span class="icon-circ" style="background:#f9731615"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L3 21l1.9-6.1A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+        <div>
+          <div class="snum">4. OBJECTION HANDLING</div>
+          <p class="muted">Handle objections with confidence.</p>
+        </div>
+      </div>
+      <ul><li>Price / Budget</li><li>Migration Risk</li><li>Status Quo</li><li>Competitor Preference</li></ul>
+      <a class="clink" style="color:#f97316" href="#">View Objection Playbook &rarr;</a>
+    </section></div>
+    
+    <section class="card wide">
+      <div class="intro">
+        <span class="icon-circ" style="background:#eab30815"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M18 20a6 6 0 0 0-3-5.2"/></svg></span>
+        <div class="snum">5. DEAL SUPPORT</div>
+        <p class="muted">Resources to strengthen your deal.</p>
+      </div>
+      <div class="cols4">
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M6 17h12"/></svg><span>Case Studies</span></div>
+      <ul><li>Relevant customer stories</li><li>Cost-savings outcomes</li></ul>
+      <a class="clink" style="color:#ca8a04" href="#">View Case Studies &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M18 20a6 6 0 0 0-3-5.2"/></svg><span>Internal SMEs</span></div>
+      <ul><li>Solutions Architect</li><li>Security Specialist</li><li>Pricing Expert</li></ul>
+      <a class="clink" style="color:#ca8a04" href="#">View Experts &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Tools &amp; Assets</span></div>
+      <ul><li>TCO Calculator</li><li>Solution Deck</li><li>Proposal Template</li></ul>
+      <a class="clink" style="color:#ca8a04" href="#">View Assets &rarr;</a>
+    </div>
+    <div class="col">
+      <div class="col-head"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.5 7 22l5-3 5 3-1.2-8.5"/></svg><span>Enablement</span></div>
+      <ul><li>Product Training</li><li>Battlecard Training</li><li>Objection Playbooks</li></ul>
+      <a class="clink" style="color:#ca8a04" href="#">View Enablement &rarr;</a>
+    </div></div>
+    </section>
+    <div class="grid-2">
+    <section class="card mini">
+      <div class="mini-head">
+        <span class="icon-circ" style="background:#8b5cf615"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></span>
+        <div>
+          <div class="snum">6. DEAL INSIGHTS</div>
+          <p class="muted">Stay ahead with real-time insights.</p>
+        </div>
+      </div>
+      <ul><li>Deal Health: <b style="color:#16a34a">On Track</b></li><li>Key Risks: Single-threaded champion</li><li>Last Activity: 2 days ago</li></ul>
+      <a class="clink" style="color:#8b5cf6" href="#">View Deal Insights &rarr;</a>
+    </section>
+    <section class="card mini">
+      <div class="mini-head">
+        <span class="icon-circ" style="background:#3b82f615"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/></svg></span>
+        <div>
+          <div class="snum">7. WIN ROOM &amp; COLLABORATION</div>
+          <p class="muted">Align and execute as a team.</p>
+        </div>
+      </div>
+      <ul><li>Shared Notes & Updates</li><li>Mutual Action Plan</li><li>Timeline & Milestones</li></ul>
+      <a class="clink" style="color:#3b82f6" href="#">Go to Win Room &rarr;</a>
+    </section></div>
+    <div class="foot">
+      <div class="living"><span class="spark">&#10022;</span>
+        <div><b>This is a living playbook.</b><p>Continuously updated as deal activity, intel, and outcomes change.</p></div>
+      </div>
+      <div class="upd">Last updated<br>July 30, 2026 at 04:21 PM PDT</div>
+    </div>
+  </div>
+</body>
+</html>
