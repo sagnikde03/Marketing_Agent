@@ -33,14 +33,14 @@ from app.etl.indexer import vector_indexer
 from app.engine.orchestrator import master_orchestrator
 from app.services.html_builder import html_builder
 
-cli = typer.Typer(help="AriGentic — Intelligent Deal Preparation Platform CLI")
+cli = typer.Typer(help="DealCraft — Intelligent Deal Preparation Platform CLI")
 console = Console()
 
 
 @cli.command()
 def test_connection():
     """Test HubSpot API Token, Neo4j, Qdrant, Redis, and LLM connectivity."""
-    console.print(Panel.fit("[bold cyan]AriGentic — System Connectivity Diagnostic[/bold cyan]"))
+    console.print(Panel.fit("[bold cyan]DealCraft — System Connectivity Diagnostic[/bold cyan]"))
 
     table = Table(show_header=True, header_style="bold magenta")
     table.add_column("Component", style="dim", width=22)
@@ -95,7 +95,7 @@ def test_connection():
 @cli.command()
 def sync_all(limit: int = typer.Option(10, help="Max deals to sync")):
     """Ingest all deals, companies, contacts, and notes from HubSpot into the Raw Lake and Graph."""
-    console.print(Panel.fit(f"[bold cyan]AriGentic — Ingesting Deals into Raw Lake & Knowledge Graph (Limit: {limit})[/bold cyan]"))
+    console.print(Panel.fit(f"[bold cyan]DealCraft — Ingesting Deals into Raw Lake & Knowledge Graph (Limit: {limit})[/bold cyan]"))
 
     deals = hubspot_connector.get_deals(limit=limit)
     if not deals:
@@ -204,7 +204,7 @@ def inspect_graph():
 @cli.command()
 def generate(deal_id: str = typer.Argument("sample-deal", help="HubSpot Deal ID (defaults to 'sample-deal')")):
     """Run the complete pipeline: Ingestion -> ETL -> Vector DB -> Neo4j -> Verified MEDDIC Playbook."""
-    console.print(Panel.fit(f"[bold cyan]AriGentic — Generating Playbook for Deal #{deal_id}[/bold cyan]"))
+    console.print(Panel.fit(f"[bold cyan]DealCraft — Generating Playbook for Deal #{deal_id}[/bold cyan]"))
 
     with console.status("[bold green]1. Ingesting Deal & Associations...[/bold green]"):
         deal = hubspot_connector.get_deal_detail(deal_id)
@@ -236,10 +236,10 @@ def serve(
     port: int = typer.Option(8000, help="Port to listen on"),
     reload: bool = typer.Option(False, help="Enable auto-reload on code change")
 ):
-    """Launch AriGentic REST API Server via Uvicorn."""
+    """Launch DealCraft REST API Server via Uvicorn."""
     import uvicorn
     console.print(Panel.fit(
-        f"[bold green]🚀 AriGentic API Server starting at http://{host}:{port}[/bold green]\n"
+        f"[bold green]🚀 DealCraft API Server starting at http://{host}:{port}[/bold green]\n"
         f"API Documentation: [cyan]http://{host}:{port}/docs[/cyan]",
         title="API Server"
     ))
@@ -249,7 +249,7 @@ def serve(
 @cli.command()
 def seed_demo():
     """Seed sample enterprise deal data into Raw Lake and generate demo playbook."""
-    console.print(Panel.fit("[bold cyan]AriGentic — Seeding Demo Enterprise Dataset[/bold cyan]"))
+    console.print(Panel.fit("[bold cyan]DealCraft — Seeding Demo Enterprise Dataset[/bold cyan]"))
     deal = hubspot_connector.seed_sample_deal()
     console.print(f"[bold green]✓ Seeded Deal:[/bold green] {deal.name} ({deal.company.name if deal.company else 'N/A'})")
     console.print(f"[bold green]✓ Ingested Contacts:[/bold green] {len(deal.contacts)}")

@@ -15,7 +15,7 @@ from app.services.html_builder import html_builder
 from app.models.schemas import PlaybookOutput, DealModel
 
 app = FastAPI(
-    title="AriGentic API",
+    title="DealCraft API",
     description="Intelligent Deal Preparation & MEDDIC Strategy Platform REST API",
     version="1.0.0"
 )
@@ -24,7 +24,7 @@ app = FastAPI(
 @app.get("/")
 def root():
     return {
-        "platform": "AriGentic",
+        "platform": "DealCraft",
         "description": "Intelligent Deal Preparation & MEDDIC Strategy Platform",
         "version": "1.0.0",
         "docs": "/docs",

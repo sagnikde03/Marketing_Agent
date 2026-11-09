@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     # Qdrant Vector DB
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
-    QDRANT_COLLECTION: str = "arigentic_deal_intel"
+    QDRANT_COLLECTION: str = "dealcraft_deal_intel"
 
     # Redis Working Memory
     REDIS_URL: str = "redis://localhost:6379/0"

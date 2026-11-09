@@ -1,3 +1,3 @@
-"""AriGentic — Intelligent Deal Preparation & MEDDIC Strategy Platform."""
+"""DealCraft — Intelligent Deal Preparation & MEDDIC Strategy Platform."""
 __version__ = "1.0.0"
 

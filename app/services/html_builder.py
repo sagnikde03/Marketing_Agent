@@ -6,7 +6,7 @@ from app.models.schemas import DealModel, PlaybookOutput, MeddicSection
 
 
 class HTMLPlaybookBuilder:
-    """Generates standalone, beautifully styled, interactive HTML playbooks matching the AriGentic target blueprint."""
+    """Generates standalone, beautifully styled, interactive HTML playbooks matching the DealCraft target blueprint."""
 
     def __init__(self, output_dir: str = "./playbooks"):
         self.output_dir = Path(output_dir)
@@ -285,7 +285,7 @@ class HTMLPlaybookBuilder:
       <div class="bc">
         <div class="bc-head">
           <div class="h-them"><span class="logo-dot"></span>Alternative / Status Quo</div>
-          <div class="h-us"><span class="logo-dot"></span>Our Platform (AriGentic)</div>
+          <div class="h-us"><span class="logo-dot"></span>Our Platform (DealCraft)</div>
           <div class="h-src">Evidence Source</div>
         </div>
         {battlecard_rows_html}

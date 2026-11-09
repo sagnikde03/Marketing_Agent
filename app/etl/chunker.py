@@ -4,7 +4,7 @@ from app.models.schemas import DealModel, TextChunk
 
 
 class SmartChunker:
-    """Implements Stage 1 Smart Chunking strategy from the AriGentic architecture."""
+    """Implements Stage 1 Smart Chunking strategy from the DealCraft architecture."""
 
     def chunk_deal(self, deal: DealModel) -> List[TextChunk]:
         chunks: List[TextChunk] = []

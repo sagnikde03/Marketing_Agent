@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 
 class MasterDealOrchestrator:
-    """Master Multi-Agent Orchestrator (Section 6 of AriGentic Architecture)."""
+    """Master Multi-Agent Orchestrator (Section 6 of DealCraft Architecture)."""
 
     def __init__(self):
         self.client: Optional[OpenAI] = None

@@ -1,7 +1,7 @@
 services:
   neo4j:
     image: neo4j:5.26.0
-    container_name: arigentic-neo4j
+    container_name: dealcraft-neo4j
     restart: unless-stopped
     ports:
       - "7474:7474"  # HTTP Web Console
@@ -16,7 +16,7 @@ services:
 
   qdrant:
     image: qdrant/qdrant:v1.12.1
-    container_name: arigentic-qdrant
+    container_name: dealcraft-qdrant
     restart: unless-stopped
     ports:
       - "6333:6333"  # REST API
@@ -26,7 +26,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: arigentic-redis
+    container_name: dealcraft-redis
     restart: unless-stopped
     ports:
       - "6379:6379"

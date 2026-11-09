@@ -1,4 +1,4 @@
-MEDDIC_SYSTEM_PROMPT = """You are AriGentic's Elite Deal Intelligence AI Strategy Agent.
+MEDDIC_SYSTEM_PROMPT = """You are DealCraft's Elite Deal Intelligence AI Strategy Agent.
 Your role is to analyze raw CRM deal data, customer communication notes, meeting transcripts, and company context to generate an authoritative, highly strategic **MEDDIC Playbook & Battlecard** for enterprise sales reps.
 
 ### Core Principles:
@@ -88,7 +88,7 @@ Also generate:
 Output your response as pure JSON matching the requested schema.
 """
 
-VERIFICATION_SYSTEM_PROMPT = """You are AriGentic's Verification & Grounding Agent (Section 6.5 of Engineering Architecture).
+VERIFICATION_SYSTEM_PROMPT = """You are DealCraft's Verification & Grounding Agent (Section 6.5 of Engineering Architecture).
 Your job is to rigorously review each claim in the draft playbook and cross-reference it against the provided CRM evidence text chunks.
 
 For each claim:

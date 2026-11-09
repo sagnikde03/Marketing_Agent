@@ -1,7 +1,7 @@
-# AriGentic 🎯
+# DealCraft 🎯
 ### Intelligent Deal Preparation & MEDDIC Strategy Platform
 
-AriGentic is an enterprise deal intelligence engine that automatically ingests CRM data, communications, and transcripts, models buying committees in a knowledge graph, indexes engagement evidence in a vector store, and synthesizes grounded, audit-verified **MEDDIC playbooks** and battlecards for enterprise sales teams.
+DealCraft is an enterprise deal intelligence engine that automatically ingests CRM data, communications, and transcripts, models buying committees in a knowledge graph, indexes engagement evidence in a vector store, and synthesizes grounded, audit-verified **MEDDIC playbooks** and battlecards for enterprise sales teams.
 
 ---
 
@@ -40,7 +40,7 @@ AriGentic is an enterprise deal intelligence engine that automatically ingests C
 
 Enterprise sales reps spend hours manually reviewing CRM notes, call transcripts, and past emails before discovery and negotiation calls. Existing generic AI summaries often hallucinate facts or give boilerplate advice that costs deals.
 
-**AriGentic solves this by combining:**
+**DealCraft solves this by combining:**
 1. **Deterministic Data Grounding:** Every claim in the playbook is verified against timestamped source citations (notes, call snippets, emails).
 2. **Graph-Backed Buying Committee Intelligence:** Direct visual and relational mapping of Economic Buyers, Champions, Blockers, and Influencers across organizations.
 3. **MEDDIC Framework Alignment:** Structured analysis directly tailored to Metrics, Economic Buyer, Decision Criteria, Decision Process, Identify Pain, and Champion.
@@ -122,7 +122,7 @@ Enterprise sales reps spend hours manually reviewing CRM notes, call transcripts
 ## 📂 Project Directory Structure
 
 ```
-d:/Arigentic/
+Marketing_Agent/
 ├── app/
 │   ├── connectors/
 │   │   └── hubspot.py          # HubSpot REST API connector & raw lake sync
@@ -174,7 +174,7 @@ d:/Arigentic/
 ### 1. Clone & Set Up Environment
 
 ```bash
-cd d:/Arigentic
+cd Marketing_Agent
 
 # Create and activate virtual environment
 python -m venv .venv
@@ -215,7 +215,7 @@ NEO4J_PASSWORD=password123
 # Qdrant Vector DB
 QDRANT_HOST=localhost
 QDRANT_PORT=6333
-QDRANT_COLLECTION=arigentic_deal_intel
+QDRANT_COLLECTION=dealcraft_deal_intel
 
 # Redis Working Memory
 REDIS_URL=redis://localhost:6379/0
@@ -237,7 +237,7 @@ Verify running containers:
 - **Qdrant REST Dashboard:** [http://localhost:6333/dashboard](http://localhost:6333/dashboard)
 - **Redis Server:** `localhost:6379`
 
-> *Note:* If you don't have Docker running, AriGentic gracefully falls back to in-memory vector storage and local heuristic processing!
+> *Note:* If you don't have Docker running, DealCraft gracefully falls back to in-memory vector storage and local heuristic processing!
 
 ---
 
@@ -326,20 +326,20 @@ This will:
 ## 🔍 Core Components & Deep Dive
 
 ### HubSpot Connector & Raw Lake
-- **Location:** [app/connectors/hubspot.py](file:///d:/Arigentic/app/connectors/hubspot.py)
+- **Location:** [app/connectors/hubspot.py](app/connectors/hubspot.py)
 - Uses HubSpot CRM v3 REST API.
 - Implements resilient batch extraction of deals and cross-object associations (`/crm/v3/objects/deals/{id}/associations/{companies,contacts,engagements}`).
 - Automatically stores raw JSON into `data/raw/{deals, companies, contacts, notes}/{id}.json` to ensure auditable, immutable data lake persistence.
 
 ### Smart Chunking Engine
-- **Location:** [app/etl/chunker.py](file:///d:/Arigentic/app/etl/chunker.py)
+- **Location:** [app/etl/chunker.py](app/etl/chunker.py)
 - Handles heterogenous CRM records:
   - **Overview Chunks:** Summarizes deal economics, pipeline stage, and buying committee.
   - **Call Transcripts:** Parses speaker turns (`Speaker 1: ...`, `Rep: ...`, `Prospect: ...`) to preserve contextual conversational dialogue.
   - **Notes & Emails:** Strips HTML formatting and chunks with author/date metadata.
 
 ### Neo4j Knowledge Graph
-- **Location:** [app/core/graph_db.py](file:///d:/Arigentic/app/core/graph_db.py), [app/etl/graph_loader.py](file:///d:/Arigentic/app/etl/graph_loader.py)
+- **Location:** [app/core/graph_db.py](app/core/graph_db.py), [app/etl/graph_loader.py](app/etl/graph_loader.py)
 - Creates a structured entity-relationship graph:
   ```cypher
   (:Deal)-[:FOR_COMPANY]->(:Company)
@@ -350,12 +350,12 @@ This will:
 - Enforces uniqueness constraints on entity IDs.
 
 ### Qdrant Vector Database
-- **Location:** [app/core/vector_db.py](file:///d:/Arigentic/app/core/vector_db.py), [app/etl/indexer.py](file:///d:/Arigentic/app/etl/indexer.py)
+- **Location:** [app/core/vector_db.py](app/core/vector_db.py), [app/etl/indexer.py](app/etl/indexer.py)
 - Generates 384-dimensional dense vectors using FastEmbed (`BAAI/bge-small-en-v1.5`) or OpenAI embeddings.
 - Automatic in-memory fallback (`QdrantClient(":memory:")`) if the Qdrant container is not reachable.
 
 ### Multi-Agent Synthesis & Verification Gate
-- **Location:** [app/engine/orchestrator.py](file:///d:/Arigentic/app/engine/orchestrator.py), [app/engine/verifier.py](file:///d:/Arigentic/app/engine/verifier.py), [app/engine/prompts.py](file:///d:/Arigentic/app/engine/prompts.py)
+- **Location:** [app/engine/orchestrator.py](app/engine/orchestrator.py), [app/engine/verifier.py](app/engine/verifier.py), [app/engine/prompts.py](app/engine/prompts.py)
 - **Strategy Agent:** Generates MEDDIC pillars:
   - **M — Metrics:** Quantifiable target outcomes (ROI, cost reduction, cycle time).
   - **E — Economic Buyer:** Identifies budget sign-off authority and executive sponsors.
@@ -366,7 +366,7 @@ This will:
 - **Verification Agent (Grounding):** Cross-references each strategic claim against indexed text chunks. Unsupported claims are flagged with `⚠️ [UNVERIFIED: No CRM source evidence found]` and moved to the **Unverified Alerts** section for discovery validation.
 
 ### Interactive HTML Playbook Generator
-- **Location:** [app/services/html_builder.py](file:///d:/Arigentic/app/services/html_builder.py)
+- **Location:** [app/services/html_builder.py](app/services/html_builder.py)
 - Compiles a self-contained, beautifully styled HTML document including:
   - Header with Deal Value, Confidence Rating, and Pipeline Stage
   - Executive Deal Summary
@@ -392,7 +392,7 @@ All settings can be configured via environment variables or a `.env` file:
 | `NEO4J_PASSWORD` | Neo4j Password | `password123` |
 | `QDRANT_HOST` | Qdrant Server Hostname | `localhost` |
 | `QDRANT_PORT` | Qdrant Server REST Port | `6333` |
-| `QDRANT_COLLECTION` | Qdrant Collection Name | `arigentic_deal_intel` |
+| `QDRANT_COLLECTION` | Qdrant Collection Name | `dealcraft_deal_intel` |
 | `REDIS_URL` | Redis Connection URL | `redis://localhost:6379/0` |
 | `RAW_DATA_LAKE_PATH` | Local Directory Path for Raw Lake Storage | `./data/raw` |
 
@@ -400,13 +400,13 @@ All settings can be configured via environment variables or a `.env` file:
 
 ## 🛡️ Fallback & Offline Resilience
 
-AriGentic is built to be resilient in disconnected, air-gapped, or rate-limited environments:
+DealCraft is built to be resilient in disconnected, air-gapped, or rate-limited environments:
 
 1. **No Docker / Database Offline:**
    - If **Neo4j** is offline, the CLI skips graph loading and warns gracefully.
    - If **Qdrant** is offline, it automatically instantiates an in-memory vector database.
 2. **No OpenAI API Key / Offline LLM:**
-   - If `OPENAI_API_KEY` is not provided or fails, AriGentic switches to the deterministic **Heuristic Strategy Engine**, parsing contact titles (CFO, VP, Director) and keyword triggers in engagement notes to generate a verified MEDDIC playbook.
+   - If `OPENAI_API_KEY` is not provided or fails, DealCraft switches to the deterministic **Heuristic Strategy Engine**, parsing contact titles (CFO, VP, Director) and keyword triggers in engagement notes to generate a verified MEDDIC playbook.
 3. **No Embeddings Provider:**
    - Uses local FastEmbed models or deterministic feature-hash pseudo-embeddings to ensure zero crashing during indexing.
 
@@ -414,4 +414,4 @@ AriGentic is built to be resilient in disconnected, air-gapped, or rate-limited 
 
 ## 📄 License
 
-This project is proprietary and intended for internal use with the AriGentic Deal Preparation Platform. All rights reserved.
+This project is proprietary and intended for internal use with the DealCraft Deal Preparation Platform. All rights reserved.
